@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: 'my_postgres_container'  # Specify a container name
+    environment:
+      - 'POSTGRES_DB=mydatabase'
+      - 'POSTGRES_USER=myuser'
+      - 'POSTGRES_PASSWORD=secret'
+    ports:
+      - '5432:5432'  # Expose PostgreSQL port to the host
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Persistent data
+      - ./init-db:/docker-entrypoint-initdb.d  # Initialization scripts
+      - ./backup:/backup  # Directory for backup files
+    networks:
+      - mynetwork  # Connect to a custom network
+
+  pgadmin:
+    image: 'dpage/pgadmin4:latest'
+    container_name: 'my_pgadmin_container'  # Specify a container name
+    environment:
+      - 'PGADMIN_DEFAULT_EMAIL=admin@example.com'
+      - 'PGADMIN_DEFAULT_PASSWORD=admin'
+    ports:
+      - '9000:80'  # Expose pgAdmin on port 9000
+    networks:
+      - mynetwork  # Connect to the same custom network as PostgreSQL
+    depends_on:
+      - postgres  # Ensure pgAdmin starts after PostgreSQL
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  postgres_data:  # Define a named volume for PostgreSQL data

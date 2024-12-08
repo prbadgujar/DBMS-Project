@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countries by Continent</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script>
+        // This function retrieves the selected continent from the URL (via query parameter or path)
+        function getContinentFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            console.log('zzzzzxxxxx', urlParams);
+            return urlParams.get('continent');
+        }
+
+        // Fetch countries based on the selected continent
+        function loadCountriesByContinent() {
+            const continent = getContinentFromUrl();
+            console.log('xxxxxxx', continent);
+            if (!continent) {
+                alert("No continent selected.");
+                return;
+            }
+
+            fetch(`/api/locations/countries-by-continent/${continent}`) // Fetch countries for the selected continent//v1
+                .then(response => response.json())
+                .then(data => {
+                    const countryGroup = document.getElementById('country-group');
+                    countryGroup.innerHTML = '';  // Clear any previous content
+
+                    if (data.length === 0) {
+                        countryGroup.innerHTML = `<p>No countries found for ${continent}.</p>`;
+                    } else {
+                        data.forEach(country => {
+                            const label = document.createElement('label');
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = 'country';
+                            checkbox.value = country;
+                            label.appendChild(checkbox);
+                            label.appendChild(document.createTextNode(country));
+                            countryGroup.appendChild(label);
+                            countryGroup.appendChild(document.createElement('br'));
+                        });
+                    }
+                })
+                .catch(error => console.error('Error fetching countries:', error));
+        }
+
+        // Call loadCountriesByContinent when the page is loaded
+        window.onload = loadCountriesByContinent;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Select a Country in the Continent</h1>
+        <div id="continent-name"></div>
+        <div class="checkbox-group" id="country-group">
+            <!-- The countries will be dynamically populated here -->
+        </div>
+        <button type="submit">Search</button>
+    </div>
+</body>
+</html>

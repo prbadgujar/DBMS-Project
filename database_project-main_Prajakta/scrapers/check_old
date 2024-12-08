@@ -1,0 +1,20 @@
+# Generate SQL insert statements
+for entry in "${input_data[@]}"; do
+    IFS='|' read -r name states <<< "$entry"
+    
+    # Extract state codes by removing any non-state code text
+    # This regex matches standalone two-letter uppercase codes
+    state_codes=$(echo "$states" | grep -oE '\b[A-Z]{2}\b' | tr '\n' ',' | sed 's/,$//')
+    
+    # Use the first state code to get loc_id
+    IFS=',' read -ra state_array <<< "$state_codes"
+    first_state="${state_array[0]}"
+    loc_id=$(get_loc_id "$first_state")
+    
+    if [ "$loc_id" -eq 0 ]; then
+        echo "Error: Invalid state code '$first_state' for entry '$entry'."
+    else
+        # Output the SQL insert statement
+        echo "INSERT INTO national_park (name, loc_id) VALUES ('$name', $loc_id);"
+    fi
+done

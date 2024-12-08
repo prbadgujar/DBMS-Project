@@ -1,0 +1,19 @@
+# Generate SQL insert statements
+for entry in "${input_data[@]}"; do
+    IFS='|' read -r name states <<< "$entry"
+    
+    # Extract valid state codes using a more refined method
+    state_codes=$(echo "$states" | grep -oE '\b(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)\b' | tr '\n' ',' | sed 's/,$//')
+    
+    # Use the first state code to get loc_id
+    IFS=',' read -ra state_array <<< "$state_codes"
+    first_state="${state_array[0]}"
+    loc_id=$(get_loc_id "$first_state")
+    
+    if [ "$loc_id" -eq 0 ]; then
+        echo "Error: Invalid state code '$first_state' for entry '$entry'."
+    else
+        # Output the SQL insert statement
+        echo "INSERT INTO national_park (name, loc_id) VALUES ('$name', $loc_id);"
+    fi
+done

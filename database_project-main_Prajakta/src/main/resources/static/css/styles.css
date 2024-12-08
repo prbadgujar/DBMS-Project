@@ -1,0 +1,67 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: url('https://banner2.cleanpng.com/20230803/yqo/transparent-national-park-service-founders-day-forest-mountain-1711096070696.webp') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 24px;
+    color: #2E8B57; /* Dark green color */
+    margin-bottom: 20px;
+}
+
+.checkbox-group {
+    text-align: left;
+    max-height: 50vh; /* Adjust the height for scrolling if needed */
+    overflow-y: auto; /* Add a scrollbar if content overflows */
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #333;
+    font-weight: bold;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+button {
+    background-color: #2E8B57; /* Dark green button */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #1E5631; /* Darker green for hover effect */
+}

@@ -1,0 +1,137 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+background-image: url('/Users/prajaktabadgujar/Downloads/WhatsApp Image 2024-12-02 at 14.44.48.jpeg'); 
+  /* background: url('https://banner2.cleanpng.com/20230803/yqo/transparent-national-park-service-founders-day-forest-mountain-1711096070696.webp') no-repeat center center fixed; */
+  background-size: cover;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+.signImg{
+  background-image: url('/Users/prajaktabadgujar/Downloads/WhatsApp Image 2024-12-02 at 15.29.33.jpeg');
+
+}
+
+
+.main-heading {
+  font-size: 80px;
+  color: black;
+  margin-bottom: 100px; /* Add space between the heading and form */
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+  width: 100%;
+}
+
+.login-container {
+  background-color: rgba(255, 255, 255, 0.4); 
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: auto;
+  
+}
+
+
+.container {
+  background-color: rgba(255, 255, 255, 0.4); 
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+h1 {
+  font-size: 24px;
+  color: #090909; /* Dark green color */
+  margin-bottom: 20px;
+}
+
+
+h2
+{
+  color: #090909; /* Dark green color */
+
+}
+
+
+
+.checkbox-group {
+  text-align: left;
+  max-height: 50vh; /* Adjust the height for scrolling if needed */
+  overflow-y: auto; /* Add a scrollbar if content overflows */
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+  font-weight: bold;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+button {
+  background-color: #2E8B57; /* Dark green button */
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+button:hover {
+  background-color: #1E5631; /* Darker green for hover effect */
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.textInput {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  width: 300px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.textInput:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}

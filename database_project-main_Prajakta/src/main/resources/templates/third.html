@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>State by Countries</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script>
+        // This function retrieves the selected country from the URL (via query parameter or path)
+        function getCountryFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('country');
+        }
+
+        // Fetch countries based on the selected country
+        function loadStatesBycountry() {
+            const country = getCountryFromUrl();
+            if (!country) {
+                alert("No country selected.");
+                return;
+            }
+
+            fetch(`/api/locations/state-by-country/${country}`) // Fetch countries for the selected country//v1
+                .then(response => response.json())
+                .then(data => {
+                    const countryGroup = document.getElementById('country-group');
+                    countryGroup.innerHTML = '';  // Clear any previous content
+
+                    if (data.length === 0) {
+                        countryGroup.innerHTML = `<p>No state found for ${country}.</p>`;
+                    } else {
+                        data.forEach(country => {
+                            const label = document.createElement('label');
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.name = 'country';
+                            checkbox.value = country;
+                            label.appendChild(checkbox);
+                            label.appendChild(document.createTextNode(country));
+                            countryGroup.appendChild(label);
+                            countryGroup.appendChild(document.createElement('br'));
+                        });
+                    }
+                })
+                .catch(error => console.error('Error fetching countries:', error));
+        }
+
+        // Call loadStatesBycountry when the page is loaded
+        window.onload = loadStatesBycountry;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Select a state in the country</h1>
+        <div id="state-name"></div>
+        <div class="checkbox-group" id="country-group">
+            <!-- The countries will be dynamically populated here -->
+        </div>
+        <button type="submit">Search</button>
+    </div>
+</body>
+</html>

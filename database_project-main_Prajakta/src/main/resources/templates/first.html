@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Park Search - Continent Selection</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script>
+        // This function ensures only one checkbox is selected at a time
+        function enforceSingleSelection(clickedCheckbox) {
+            console.log('xxxxxxx');
+
+            const checkboxes = document.querySelectorAll('input[name="continent"]');
+            checkboxes.forEach(checkbox => {
+                if (checkbox !== clickedCheckbox) {
+                    checkbox.checked = false;
+                }
+            });
+        }
+
+        // Fetch continents from the server and populate the checkboxes
+        function loadContinents() {
+            fetch('/api/locations/continent')  // Call the new endpoint to fetch continents
+                .then(response => response.json())
+                .then(data => {
+                    const continentGroup = document.getElementById('continent-group');
+                    data.forEach(continent => {
+                        const label = document.createElement('label');
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.name = 'continent';                        checkbox.value = continent;
+                        checkbox.onclick = () => enforceSingleSelection(checkbox);
+                        label.appendChild(checkbox);
+                        label.appendChild(document.createTextNode(continent));
+                        continentGroup.appendChild(label);
+                        continentGroup.appendChild(document.createElement('br'));
+                    });
+                })
+                .catch(error => console.error('Error fetching continents:', error));
+}
+ function redirectToCountriesPage() {
+
+    console.log('xxxxxxx');
+
+    const selectedContinent = (document.querySelector('input[name="continent"]:checked').value);
+    
+    let encodeurl = encodeURIComponent(selectedContinent);
+    let modifiled= encodeurl.replace(" ","-");
+    console.log(encodeurl);
+
+    if (selectedContinent) {
+            console.log('aaaaaa');
+            //const continent = selectedContinent.value;
+            // Redirect to the countries page with the selected continent
+            
+            window.location.href = `second.html?continent=${modifiled}`;   //v1
+        } else {
+            alert("Please select a continent.");
+        }
+    }
+
+        
+
+        // Call the loadContinents function when the page loads
+        window.onload = loadContinents;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Select a Continent</h1>
+        <div class="checkbox-group" id="continent-group">
+            <!-- The continents will be dynamically populated here -->
+        </div>
+        <button onclick="redirectToCountriesPage()">View Countries</button>
+    </div>
+</body>
+</html>
